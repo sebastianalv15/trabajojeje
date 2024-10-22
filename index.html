@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosa para Natalia</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Botón para iniciar la animación */
+        #btnClick {
+            background-color: #ff69b4;
+            color: white;
+            padding: 15px 30px;
+            font-size: 22px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 2;
+        }
+
+        #btnClick:hover {
+            background-color: #ff1493;
+        }
+
+        /* Contenedor de la rosa */
+        #roseContainer {
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 2;
+        }
+
+        #roseSVG {
+            width: 300px;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+
+        #message {
+            font-size: 24px;
+            color: #fff;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        /* Estrellas animadas */
+        .star {
+            position: absolute;
+            background-color: rgba(0, 255, 255, 0.8);
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            animation: star-animation 5s linear infinite;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        @keyframes star-animation {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Tallo y pétalos animados */
+        .stem {
+            opacity: 0;
+            transform-origin: bottom;
+            transform: scaleY(0);
+            animation: growStem 2s forwards ease-in;
+        }
+
+        .petal {
+            opacity: 0;
+            transform-origin: center;
+            transform: scale(0.1);
+            animation: bloom 2s forwards ease-out;
+        }
+
+        .petal:nth-child(1) {
+            animation-delay: 2.5s;
+        }
+
+        .petal:nth-child(2) {
+            animation-delay: 2.7s;
+        }
+
+        .petal:nth-child(3) {
+            animation-delay: 2.9s;
+        }
+
+        .petal:nth-child(4) {
+            animation-delay: 3.1s;
+        }
+
+        .petal:nth-child(5) {
+            animation-delay: 3.3s;
+        }
+
+        @keyframes growStem {
+            0% {
+                opacity: 0;
+                transform: scaleY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+        }
+
+        @keyframes bloom {
+            0% {
+                opacity: 0;
+                transform: scale(0.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button id="btnClick">Dale click, mi amor</button>
+
+    <div id="roseContainer">
+        <svg id="roseSVG" viewBox="0 0 100 150">
+            <!-- Tallo de la rosa -->
+            <rect class="stem" x="48" y="30" width="4" height="70" fill="#228B22" />
+            
+            <!-- Hojas -->
+            <ellipse class="stem" cx="42" cy="60" rx="10" ry="4" fill="#228B22" />
+            <ellipse class="stem" cx="58" cy="80" rx="10" ry="4" fill="#228B22" />
+
+            <!-- Pétalos de la rosa -->
+            <circle class="petal" cx="50" cy="30" r="10" fill="#FF3366" />
+            <circle class="petal" cx="60" cy="40" r="10" fill="#FF3366" />
+            <circle class="petal" cx="50" cy="50" r="10" fill="#FF3366" />
+            <circle class="petal" cx="40" cy="40" r="10" fill="#FF3366" />
+            <circle class="petal" cx="50" cy="40" r="6" fill="#D40000" />
+        </svg>
+        <p id="message">Te quiero mucho, Natalia &lt;3</p>
+    </div>
+
+    <script>
+        // Generar estrellas aleatoriamente
+        function createStars() {
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDuration = `${Math.random() * 5 + 2}s`;
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = `${Math.random() * 3 + 1}px`;
+                document.body.appendChild(star);
+            }
+        }
+
+        document.getElementById('btnClick').addEventListener('click', function() {
+            const roseContainer = document.getElementById('roseContainer');
+            roseContainer.style.display = 'block';
+            setTimeout(() => {
+                roseContainer.style.opacity = 1;
+            }, 100);
+
+            setTimeout(() => {
+                document.getElementById('message').style.opacity = 1;
+            }, 3500); // Aparece el mensaje después de que la rosa florece
+
+            // Iniciar estrellas al hacer click
+            createStars();
+        });
+    </script>
+
+</body>
+</html>
